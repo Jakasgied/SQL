@@ -1,0 +1,66 @@
+-- Sukuriama naujai lentele, kadangi testiniu 
+  CREATE TABLE `Darbuotojai` (
+  `id` int unsigned AUTO_INCREMENT,
+  `vardas` varchar(20),
+  `pavarde` varchar(20),
+  `alga` int unsigned,
+  `bonusas` int DEFAULT 0, 
+  CHECK(`alga`>1000),
+  PRIMARY KEY(`id`));
+  
+  -- Pridedame vėl reikšmes - įvedabe darbuotojus į lentelę
+  INSERT INTO `Darbuotojai` (`vardas`, `pavarde`, `alga`) 
+  VALUES
+  ('Vardenis', 'Pavardenis', '1200'),
+  ('Jonas', 'Jonauskas', '1400'),
+  ('Antanas', 'Antanevicius', '950'), 
+  ('Petras', 'Petrauskas', '1050'), 
+  ('Erikas', 'Perikas', '800'),
+  ('Antanas', 'Antanevicius', '1300'),
+  ('Jonas', 'Jonevicius', '1700');
+  
+  /* Sukuriame antrą lentelę - Tranporto Vairuotojai, joje darbuotojai, kurie vairuoja įmonės transportą */
+  CREATE TABLE `TransportoDarbuotojai` (
+    `darbuotojoID` int unsigned,
+    `vardas` varchar(20),
+    `pavarde` varchar(20),
+    `vairuojamaMasina` varchar(7),
+    `sav_kelias` int,
+    `sav_numatytas_kelias` int,
+    PRIMARY KEY(`darbuotojoID`),
+    FOREIGN KEY(`darbuotojoID`) REFERENCES `Darbuotojai`(`id`),
+    FOREIGN KEY(`vairuojamaMasina`) REFERENCES `TransportoDarbuotojai`(`idNumeriai`));
+    
+ 
+    
+  -- Idedame viena transporto vairuotoja, jog galetume pasibandyti
+  INSERT INTO `TransportoDarbuotojai` (`darbuotojoID`, `vardas`, `pavarde`, `vairuojamaMasina`, `sav_kelias`, `sav_numatytas_kelias`)
+  VALUES ('1', 'Vardenis', 'Pavardenis', 'AVS-123', '123', '140');
+  
+ 
+  CREATE TABLE `TransportoPriemonė` (
+    `idNumeriai` varchar (10),
+    `metai` varchar(20),
+    `markė` varchar(20),
+    `modelis` varchar(7),
+    `arVeikia` int(7),
+    PRIMARY KEY(`idNumeriai`));
+    
+    INSERT INTO `TransportoPriemonė` (`idNumeriai`, `metai`, `markė`, `modelis`, `arVeikia`)
+  VALUES ('AVS-123', '2004', 'audi', 'a4', '1');
+  
+  CREATE TABLE `Reisas` (
+    `id` int,
+    `miestas` varchar(10),
+    `diena` varchar(10),
+    `masina` varchar(10),
+    `darbuotojoID` varchar(10),
+    PRIMARY KEY(`id`),
+    FOREIGN KEY(`masina`) REFERENCES `TransportoPriemonė`(`idNumeriai`));
+    
+    
+    INSERT INTO `Reisas` (`id`, `miestas`, `diena`, `masina`, `darbuotojoID`)
+    VALUES ('1', 'Kaunas', 'Apr-17', 'HRK-874', '3');
+    
+
+ 
