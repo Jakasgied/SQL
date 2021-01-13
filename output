@@ -1,0 +1,4 @@
+SELECT * FROM `Darbuotojai`;
+SELECT * FROM `TransportoDarbuotojai`;
+SELECT * FROM `TransportoPriemonė`;
+SELECT * FROM `Reisas`;
